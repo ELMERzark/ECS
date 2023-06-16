@@ -35,6 +35,7 @@ add_recursive( ./ SOURCE_FILES )
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Util)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Sample)
 
 add_filtered_std("Util")
 add_filtered_std("Util/Traits")
@@ -43,5 +44,7 @@ add_filtered_std("ThirdParty")
 add_filtered_std("ThirdParty/core")
 add_filtered_std("ThirdParty/core/algorithm")
 add_filtered_std("ThirdParty/utility")
+
+add_filtered_std("Sample")
 
 add_executable(${TARGETNAME} ${SOURCE_FILES} ${HEADER_FILES})
