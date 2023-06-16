@@ -12,6 +12,10 @@ void Test1::TestEcs()
 
 	Entity ea1 = mgr.createEntity< ArchetypeA>();
 	mgr.get<AAA>(ea1).mass = 100;
+	mgr.get<int>(ea1) = 20;
+	mgr.get<float>(ea1) = 35.6f;
+	std::cout << "ea1 int:" << mgr.get<int>(ea1) << std::endl;
+	std::cout << "ea1 float:" << mgr.get<float>(ea1) << std::endl;
 	Entity ea2 = mgr.createEntity< ArchetypeA>();
 	mgr.get<AAA>(ea2).mass = 100;
 	Entity ea3 = mgr.createEntity< ArchetypeA>();
