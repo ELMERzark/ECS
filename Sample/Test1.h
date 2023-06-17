@@ -39,5 +39,9 @@ public:
 	void TestEcs();
 	//计算消耗时间
 	long long CaculateTime(int timeType, std::chrono::system_clock::time_point start);
+	/**
+		生成随机数
+	*/
+	int GenerateRandom(int p_min, int p_max);
 };
 #endif

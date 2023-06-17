@@ -36,6 +36,13 @@ long long Test1::CaculateTime(int timeType, std::chrono::system_clock::time_poin
 
 	return end_value - start_value;
 }
+std::default_random_engine __GENERATOR;
+
+int Test1::GenerateRandom(int p_min, int p_max)
+{
+	std::uniform_int_distribution<int> distribution(p_min, p_max);
+	return distribution(__GENERATOR);
+}
 void Test1::TestEcs()
 {
 	using ArchetypeA = Archetype<int, float, AAA>;
@@ -146,7 +153,7 @@ void Test1::TestEcs()
 	for (size_t i = 0; i < 1000000; i++)
 	{
 		NormalClass entityElement;
-		entityElement.m_a = 10 + int(i);
+		entityElement.m_a = GenerateRandom(1,4);
 		vNormalEntity.push_back(entityElement);
 	}
 	duration = CaculateTime(2, start);
@@ -156,8 +163,14 @@ void Test1::TestEcs()
 	start = std::chrono::system_clock::now();
 	for_each(vNormalEntity.begin(), vNormalEntity.end(), [&](auto& pair)
 		{
-			pair.m_a += 45;
-			int a = pair.m_a;
+			if (3 == pair.m_a)
+			{
+				pair.m_a = 30;
+			}
+			if (2 == pair.m_a)
+			{
+				pair.m_a = 20;
+			}
 		});
 	duration = CaculateTime(2, start);
 	std::cout << "¼ä¸ô ºÁÃë5:" << duration << std::endl;
