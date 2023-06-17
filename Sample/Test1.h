@@ -37,7 +37,7 @@ public:
 
 public:
 	void TestEcs();
-	// è®¡ç®—æ¶ˆè€—æ—¶é—´ å•ä½ï¼šæ¯«ç§’å·®
+	//¼ÆËãÏûºÄÊ±¼ä
 	long long CaculateTime(int timeType, std::chrono::system_clock::time_point start);
 };
 #endif

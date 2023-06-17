@@ -11,22 +11,22 @@ long long Test1::CaculateTime(int timeType, std::chrono::system_clock::time_poin
 	switch (timeType)
 	{
 	case 1:
-		// "ç§’"
+		// "Ãë"
 		start_value = std::chrono::duration_cast<std::chrono::seconds>(start.time_since_epoch()).count();
 		end_value = std::chrono::duration_cast<std::chrono::seconds>(end.time_since_epoch()).count();
 		break;
 	case 2:
-		// "æ¯«ç§’"
+		// "ºÁÃë"
 		start_value = std::chrono::duration_cast<std::chrono::milliseconds>(start.time_since_epoch()).count();
 		end_value = std::chrono::duration_cast<std::chrono::milliseconds>(end.time_since_epoch()).count();
 		break;
 	case 3:
-		// "å¾®å¦™"
+		// "Î¢Ãë"
 		start_value = std::chrono::duration_cast<std::chrono::microseconds>(start.time_since_epoch()).count();
 		end_value = std::chrono::duration_cast<std::chrono::microseconds>(end.time_since_epoch()).count();
 		break;
 	case 4:
-		// "çº³ç§’"
+		// "ÄÉÃë"
 		start_value = std::chrono::duration_cast<std::chrono::nanoseconds>(start.time_since_epoch()).count();
 		end_value = std::chrono::duration_cast<std::chrono::nanoseconds>(end.time_since_epoch()).count();
 		break;
@@ -90,7 +90,7 @@ void Test1::TestEcs()
 	assert(mgr.get<AAA>(eb3).mass == 50);
 	*/
 
-	//ç§»åŠ¨entity(ç­‰ä»·äºŽä¿®æ”¹Entityçš„ç±»åž‹)
+	//ÒÆ¶¯entity(µÈ¼ÛÓÚÐÞ¸ÄEntityµÄÀàÐÍ)
 	mgr.moveEntity<ArchetypeB>(ea2);
 	assert(mgr.exist(ea2) == true);
 	assert(mgr.get<AAA>(ea2).mass == 100);
@@ -110,7 +110,7 @@ void Test1::TestEcs()
 		vEntity.push_back(entityElement); 
 	}
 	long long duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’1:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë1:" << duration << std::endl;
 
 
 	start = std::chrono::system_clock::now();
@@ -119,7 +119,7 @@ void Test1::TestEcs()
 			mgr.get<AAA>(pair).a += 45;
 		});
 	duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’2:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë2:" << duration << std::endl;
 
 
 	start = std::chrono::system_clock::now();
@@ -129,7 +129,7 @@ void Test1::TestEcs()
 	mgr.entity_for_each(func);
 	mgr.runAllTasks();
 	duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’3:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë3:" << duration << std::endl;
 
 	start = std::chrono::system_clock::now();
 	std::function<void(AAA& aaa, float& f, char c)> func2 = [](AAA& aaa, float& f, char c) {
@@ -139,18 +139,18 @@ void Test1::TestEcs()
 	mgr.entity_for_each(func2);
 	mgr.runAllTasks();
 	duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’6:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë6:" << duration << std::endl;
 
 	start = std::chrono::system_clock::now();
 	std::vector<NormalClass> vNormalEntity;
 	for (size_t i = 0; i < 1000000; i++)
 	{
 		NormalClass entityElement;
-		entityElement.m_a = 10 + i;
+		entityElement.m_a = 10 + int(i);
 		vNormalEntity.push_back(entityElement);
 	}
 	duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’4:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë4:" << duration << std::endl;
 
 
 	start = std::chrono::system_clock::now();
@@ -160,7 +160,7 @@ void Test1::TestEcs()
 			int a = pair.m_a;
 		});
 	duration = CaculateTime(2, start);
-	std::cout << "é—´éš” æ¯«ç§’5:" << duration << std::endl;
+	std::cout << "¼ä¸ô ºÁÃë5:" << duration << std::endl;
 
 	return;
 }
