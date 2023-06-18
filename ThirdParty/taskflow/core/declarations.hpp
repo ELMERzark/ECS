@@ -2,19 +2,23 @@
 
 namespace tf {
 
+// ----------------------------------------------------------------------------
 // taskflow
+// ----------------------------------------------------------------------------
 class AsyncTopology;
 class Node;
 class Graph;
 class FlowBuilder;
 class Semaphore;
 class Subflow;
+class Runtime;
 class Task;
 class TaskView;
 class Taskflow;
 class Topology;
 class TopologyBase;
 class Executor;
+class Worker;
 class WorkerView;
 class ObserverInterface;
 class ChromeTracingObserver;
@@ -24,7 +28,12 @@ class TFProfManager;
 template <typename T>
 class Future;
 
+template <typename...Fs>
+class Pipeline;
+
+// ----------------------------------------------------------------------------
 // cudaFlow
+// ----------------------------------------------------------------------------
 class cudaNode;
 class cudaGraph;
 class cudaTask;
@@ -35,16 +44,14 @@ class cudaCapturingBase;
 class cudaLinearCapturing;
 class cudaSequentialCapturing;
 class cudaRoundRobinCapturing;
-class cublasFlowCapturer;
 
+// ----------------------------------------------------------------------------
 // syclFlow
+// ----------------------------------------------------------------------------
 class syclNode;
 class syclGraph;
 class syclTask;
 class syclFlow;
-
-// clas
-class Sanitizer;
 
 
 }  // end of namespace tf -----------------------------------------------------
