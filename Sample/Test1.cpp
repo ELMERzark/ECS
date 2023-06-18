@@ -48,10 +48,11 @@ void Test1::TestEcs()
 	using ArchetypeA = Archetype<int, float, AAA>;
 	using ArchetypeB = Archetype<int, float, AAA, char>;
 	using ArchetypeC = Archetype<float, AAA>;
+	using ArchetypeD = Archetype<long, AAA>;
 
-	EntityMgr<ArchetypeA, ArchetypeB, ArchetypeC> mgr;
-	static_assert(mgr.getArchetypeNum() == 3);
-	static_assert(mgr.getComponentNum() == 4);
+	EntityMgr<ArchetypeA, ArchetypeB, ArchetypeC, ArchetypeD> mgr;
+	static_assert(mgr.getArchetypeNum() == 4);
+	static_assert(mgr.getComponentNum() == 5);
 
 	Entity ea1 = mgr.createEntity< ArchetypeA>();
 	mgr.get<AAA>(ea1).mass = 100;
@@ -59,23 +60,23 @@ void Test1::TestEcs()
 	mgr.get<float>(ea1) = 35.6f;
 	std::cout << "ea1 int:" << mgr.get<int>(ea1) << std::endl;
 	std::cout << "ea1 float:" << mgr.get<float>(ea1) << std::endl;
-	Entity ea2 = mgr.createEntity< ArchetypeA>();
+	Entity ea2 = mgr.createEntity<ArchetypeA>();
 	mgr.get<AAA>(ea2).mass = 100;
-	Entity ea3 = mgr.createEntity< ArchetypeA>();
+	Entity ea3 = mgr.createEntity<ArchetypeA>();
 	mgr.get<AAA>(ea3).mass = 100;
 
-	Entity eb1 = mgr.createEntity< ArchetypeB>();
+	Entity eb1 = mgr.createEntity<ArchetypeB>();
 	mgr.get<AAA>(eb1).mass = 50;
-	Entity eb2 = mgr.createEntity< ArchetypeB>();
+	Entity eb2 = mgr.createEntity<ArchetypeB>();
 	mgr.get<AAA>(eb2).mass = 50;
-	Entity eb3 = mgr.createEntity< ArchetypeB>();
+	Entity eb3 = mgr.createEntity<ArchetypeB>();
 	mgr.get<AAA>(eb3).mass = 50;
 
-	Entity ec1 = mgr.createEntity< ArchetypeC>();
+	Entity ec1 = mgr.createEntity<ArchetypeC>();
 	mgr.get<AAA>(ec1).mass = 20;
-	Entity ec2 = mgr.createEntity< ArchetypeC>();
+	Entity ec2 = mgr.createEntity<ArchetypeC>();
 	mgr.get<AAA>(ec2).mass = 20;
-	Entity ec3 = mgr.createEntity< ArchetypeC>();
+	Entity ec3 = mgr.createEntity<ArchetypeC>();
 	mgr.get<AAA>(ec3).mass = 20;
 
 	ArchetypeIter<ArchetypeB> iter = mgr.begin<ArchetypeB>();
@@ -98,15 +99,24 @@ void Test1::TestEcs()
 	*/
 
 	//移动entity(等价于修改Entity的类型)
+	std::cout << "mass value1:" << mgr.get<AAA>(ea2).mass << std::endl;
 	mgr.moveEntity<ArchetypeB>(ea2);
+	std::cout << "mass value2:" << mgr.get<AAA>(ea2).mass << std::endl;
+	std::cout << "mass value3:" << mgr.get<char>(ea2) << std::endl;
 	assert(mgr.exist(ea2) == true);
 	assert(mgr.get<AAA>(ea2).mass == 100);
+	std::cout << "mass value5:" << mgr.get<AAA>(eb3).mass << std::endl;
+	mgr.moveEntity<ArchetypeA>(eb3);
+	std::cout << "mass value4:" << mgr.get<AAA>(eb3).mass << std::endl;
 
-	assert(mgr.getArchetypeEntityNum<ArchetypeA>() == 2);
-	assert(mgr.getArchetypeEntityNum<ArchetypeB>() == 4);
+	assert(mgr.getArchetypeEntityNum<ArchetypeA>() == 3);
+	assert(mgr.getArchetypeEntityNum<ArchetypeB>() == 3);
 	assert(mgr.getArchetypeEntityNum<ArchetypeC>() == 3);
 	assert(mgr.getTotalEntityNum() == 9);
 
+	mgr.removeEntity(eb3);
+
+	assert(mgr.getTotalEntityNum() == 8);
 	std::cout << "All test passed!\n";
 
 	auto start = std::chrono::system_clock::now();
